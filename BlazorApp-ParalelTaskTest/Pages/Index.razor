@@ -69,21 +69,13 @@
         if (idList != null)
         {
 
-            int a = 0;
-            int b = 0;
-            int c = 0;
-            int d = 0;
-
 
             string[] values = idList.Split(',');
 
             List<int> ids = new List<int>(values.Length);
-            List<int> aa = new List<int>(values.Length);
+            List<int> aa = new List<int>(values.Length) { 0,0,0,0};
 
             Task[] tasks = new Task[values.Length];
-
-
-            int n = 0;
 
 
             foreach (string s in values)
@@ -99,29 +91,30 @@
 
             }
 
+            for (int j=0; j<values.Length; j++)
+            {
 
+                Console.WriteLine("agaga   " + j);
+                int ff = j;
+                tasks[j] = new Task(() => { 
 
-
+                    Console.WriteLine("ogogo   " + ff);
+                    Console.WriteLine(factorial(ids[ff]));
+                    //  aa.Add(factorial(ids[ff])); 
+                    aa[ff] = factorial(ids[ff]);
+                });
+            }
 
             
-
-
-            tasks[0] = new Task(() => { a = (factorial(ids[0])); });
-            tasks[1] = new Task(() => { b = (factorial(ids[1])); });
-            tasks[2] = new Task(() => { c = (factorial(ids[2])); });
-            tasks[3] = new Task(() => { d = (factorial(ids[3])); });
-
             foreach (Task tt in tasks)
             {
                 tt.Start();
+
             }
+           
 
             Task.WaitAll(tasks);
-
-            aa.Add(a);
-            aa.Add(b);
-            aa.Add(c);
-            aa.Add(d);
+            
 
             return aa;
 
