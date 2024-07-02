@@ -1,0 +1,140 @@
+﻿@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.AspNetCore.Components.Forms
+
+
+
+@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+
+
+<div>
+    <p>
+        Name:<br />
+        <InputText @bind-Value="Name" />
+    </p>
+
+</div>
+
+
+<div>
+    <p>Name @test(Name)</p>
+</div>
+
+<div>
+    <p>Factorial A @GetIdListFromString(test(Name)).ElementAt(0)</p>
+</div>
+
+<div>
+    <p>Factorial B @GetIdListFromString(test(Name)).ElementAt(1)</p>
+</div>
+
+<div>
+    <p>Factorial C @GetIdListFromString(test(Name)).ElementAt(2)</p>
+</div>
+
+<div>
+    <p>Factorial D @GetIdListFromString(test(Name)).ElementAt(3)</p>
+</div>
+
+
+
+@code 
+{
+
+    string? Name;
+
+
+    string test(string _input)
+    {
+
+        return _input;
+
+    }
+
+    static int factorial(int a)
+    {
+        if (a == 0 || a == 1) return 1;
+        else return a * factorial(a - 1);
+    }
+
+
+    public static IList<int> GetIdListFromString(string idList)
+    {
+
+
+        if (idList != null)
+        {
+
+            int a = 0;
+            int b = 0;
+            int c = 0;
+            int d = 0;
+
+
+            string[] values = idList.Split(',');
+
+            List<int> ids = new List<int>(values.Length);
+            List<int> aa = new List<int>(values.Length);
+
+            Task[] tasks = new Task[values.Length];
+
+
+            int n = 0;
+
+
+            foreach (string s in values)
+            {
+
+                int i;
+
+                if (int.TryParse(s, out i))
+                {
+                    ids.Add(i);
+                }
+
+
+            }
+
+
+
+
+
+            
+
+
+            tasks[0] = new Task(() => { a = (factorial(ids[0])); });
+            tasks[1] = new Task(() => { b = (factorial(ids[1])); });
+            tasks[2] = new Task(() => { c = (factorial(ids[2])); });
+            tasks[3] = new Task(() => { d = (factorial(ids[3])); });
+
+            foreach (Task tt in tasks)
+            {
+                tt.Start();
+            }
+
+            Task.WaitAll(tasks);
+
+            aa.Add(a);
+            aa.Add(b);
+            aa.Add(c);
+            aa.Add(d);
+
+            return aa;
+
+
+        }
+
+        else
+        {
+            
+            return new List<int> { 1, 1, 1, 1};
+        }
+    }
+
+
+
+}
