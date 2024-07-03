@@ -13,7 +13,7 @@
 
 <div>
     <p>
-        Name:<br />
+        Digits:<br />
         <InputText @bind-Value="Name" />
     </p>
 
@@ -21,24 +21,16 @@
 
 
 <div>
-    <p>Name @test(Name)</p>
+    <p>Digits @test(Name)</p>
 </div>
+
+
 
 <div>
     <p>Factorial A @GetIdListFromString(test(Name)).ElementAt(0)</p>
 </div>
 
-<div>
-    <p>Factorial B @GetIdListFromString(test(Name)).ElementAt(1)</p>
-</div>
 
-<div>
-    <p>Factorial C @GetIdListFromString(test(Name)).ElementAt(2)</p>
-</div>
-
-<div>
-    <p>Factorial D @GetIdListFromString(test(Name)).ElementAt(3)</p>
-</div>
 
 
 
@@ -46,7 +38,6 @@
 {
 
     string? Name;
-
 
     string test(string _input)
     {
@@ -98,23 +89,23 @@
                 int ff = j;
                 tasks[j] = new Task(() => { 
 
-                    Console.WriteLine("ogogo   " + ff);
+                    Console.WriteLine("ogogo  ff = " + ff + "   j =   " + j);
                     Console.WriteLine(factorial(ids[ff]));
                     //  aa.Add(factorial(ids[ff])); 
                     aa[ff] = factorial(ids[ff]);
                 });
             }
 
-            
+
             foreach (Task tt in tasks)
             {
                 tt.Start();
 
             }
-           
+
+
 
             Task.WaitAll(tasks);
-            
 
             return aa;
 
