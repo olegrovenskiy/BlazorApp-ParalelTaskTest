@@ -27,7 +27,7 @@
 
 
 <div>
-    <p>Factorial A @GetIdListFromString(test(Name)).ElementAt(0)</p>
+    <p>Factorial  @GetIdListFromString(test(Name))</p>
 </div>
 
 
@@ -53,9 +53,9 @@
     }
 
 
-    public static IList<int> GetIdListFromString(string idList)
+    public static string GetIdListFromString(string idList)
     {
-
+        string output = "";
 
         if (idList != null)
         {
@@ -64,7 +64,7 @@
             string[] values = idList.Split(',');
 
             List<int> ids = new List<int>(values.Length);
-            List<int> aa = new List<int>(values.Length) { 0,0,0,0};
+            List<int> aa = new List<int>(values.Length){ 0,0,0,0};
 
             Task[] tasks = new Task[values.Length];
 
@@ -91,7 +91,7 @@
 
                     Console.WriteLine("ogogo  ff = " + ff + "   j =   " + j);
                     Console.WriteLine(factorial(ids[ff]));
-                    //  aa.Add(factorial(ids[ff])); 
+                     // aa.Add(factorial(ids[ff])); 
                     aa[ff] = factorial(ids[ff]);
                 });
             }
@@ -107,7 +107,15 @@
 
             Task.WaitAll(tasks);
 
-            return aa;
+            foreach (int ss in aa)
+            {
+
+                output = output + ss + "  |  ";
+
+            }
+
+            Console.WriteLine(output);
+            return output;
 
 
         }
@@ -115,7 +123,7 @@
         else
         {
             
-            return new List<int> { 1, 1, 1, 1};
+            return " ";
         }
     }
 
