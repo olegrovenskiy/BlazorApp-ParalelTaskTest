@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components.Forms
-
+@using System.Threading;
 
 
 @page "/"
@@ -37,6 +37,8 @@
 @code 
 {
 
+   
+
     string? Name;
 
     string test(string _input)
@@ -55,11 +57,16 @@
 
     public static string GetIdListFromString(string idList)
     {
+        
+        
+        
+        
         string output = "";
 
         if (idList != null)
         {
-
+            Thread currentThread = Thread.CurrentThread;
+            Console.WriteLine($"Id thread основного потока start: {currentThread.ManagedThreadId}");
 
             string[] values = idList.Split(',');
 
@@ -92,11 +99,13 @@
                     Console.WriteLine("ogogo  ff = " + ff + "   j =   " + j);
                     Console.WriteLine(factorial(ids[ff]));
                      // aa.Add(factorial(ids[ff])); 
+                    Thread currentThread = Thread.CurrentThread;
+                    Console.WriteLine($"Id thread потока: {currentThread.ManagedThreadId}");
                     aa[ff] = factorial(ids[ff]);
                 });
             }
 
-
+ 
             foreach (Task tt in tasks)
             {
                 tt.Start();
@@ -115,6 +124,8 @@
             }
 
             Console.WriteLine(output);
+            Thread currentThread1 = Thread.CurrentThread;
+            Console.WriteLine($"Id thread основного потока end: {currentThread1.ManagedThreadId}");
             return output;
 
 
